@@ -38,7 +38,7 @@ CREDIT = (
     DEFAULT_CREDIT
     + ". County vaccination data for "
     + join_and(x for _, x, _ in MANUALLY_INFER_STATES)
-    + " is inferred from demographics and the state topline."
+    + " as well as some rural counties in CA is inferred from demographics and the state topline."
     + " The exact numbers for vaccinated democrats/unvaccinated democrats/etc are inferred,"
     + " but made to match the total numbers of vaccinated and democrats in each county."
     + f" Data is as of {DATE['disp']}."

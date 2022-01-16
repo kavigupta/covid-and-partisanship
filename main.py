@@ -1,3 +1,6 @@
+import numpy as np
+import pandas as pd
+
 from create import (
     load_data,
     plot_predictions,
@@ -52,20 +55,37 @@ def plot_maps(all_data, adjusted):
     plot_election(
         all_data.data,
         adjusted[:, 0],
-        "Among Vaccinated People",
+        "Among Vaccinated Adults",
         "images/vaccinated.svg",
         use_turnout=True,
     )
     plot_election(
         all_data.data,
         adjusted[:, 1],
-        "Among Unaccinated People",
+        "Among Unaccinated Adults",
         "images/unvaccinated.svg",
         use_turnout=True,
     )
     plot_all_four(
         all_data.data, "Most Present Type of Person", "images/all_four.svg", adjusted
     )
+
+
+def make_csv(all_data, adjusted):
+    pd.DataFrame(
+        adjusted.reshape(-1, 4),
+        index=np.where(
+            all_data.data["state"] == "Alaska",
+            all_data.data.FIPS.apply(lambda x: f"AK 5regions: {x[2:]}, Alaska"),
+            all_data.data["county"] + ", " + all_data.data["state"],
+        ),
+        columns=[
+            "Vaccinated Democrats",
+            "Vaccinated Republicans",
+            "Unvaccinated Democrats",
+            "Unvaccinated Republicans",
+        ],
+    ).to_csv("csvs/inferred_breakdown.csv")
 
 
 def main():
@@ -80,6 +100,7 @@ def main():
     plot_predictions(all_data.pop, all_data.dem_share, all_data.vaxx_share, unadjusted)
     table(all_data, adjusted)
     plot_maps(all_data, adjusted)
+    make_csv(all_data, adjusted)
 
 
 if __name__ == "__main__":
