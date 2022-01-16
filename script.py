@@ -407,7 +407,7 @@ def predict_uk_with_usa():
 
 
 def plot_election(stat):
-    p = (stat[:,0] - stat[:,1]) / stat.sum(1)
+    p = (stat[:, 0] - stat[:, 1]) / stat.sum(1)
     t = data.turnout * stat.sum(1)
     _ = produce_entire_map(
         data,
