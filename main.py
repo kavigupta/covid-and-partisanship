@@ -67,7 +67,7 @@ def plot_maps(all_data, adjusted):
     plot_election(
         all_data.data,
         adjusted[:, 1],
-        "Among Unaccinated Adults",
+        "Among Unvaccinated Adults",
         "images/unvaccinated.svg",
         use_turnout=True,
     )
