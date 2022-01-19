@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import dataframe_image as dfi
 
 from create import (
     load_data,
@@ -15,16 +16,20 @@ from create import (
 
 
 def table(all_data, adjusted):
-    with open("tables/topline.html", "w") as f:
-        f.write(render_perc_table(get_topline(adjusted, all_data.pop)))
-    with open("tables/electoral_effect.html", "w") as f:
-        f.write(
-            render_perc_table(
-                compute_electoral_effect(
-                    adjusted, 1e6, all_data.dem_share, all_data.pop, all_data.data
-                )
+    dfi.export(
+        render_perc_table(get_topline(adjusted, all_data.pop)),
+        "images/topline.png",
+        fontsize=100,
+    )
+    dfi.export(
+        render_perc_table(
+            compute_electoral_effect(
+                adjusted, 1e6, all_data.dem_share, all_data.pop, all_data.data
             )
-        )
+        ),
+        "images/electoral_effect.png",
+        fontsize=50,
+    )
 
 
 def plot_maps(all_data, adjusted):

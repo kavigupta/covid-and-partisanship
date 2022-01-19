@@ -371,8 +371,4 @@ def compute_electoral_effect(
 
 
 def render_perc_table(table):
-    return (
-        table.style.format("{:.2%}")
-        .set_properties(**{"text-align": "right"})
-        .render(classes="table table-striped")
-    )
+    return table.style.format("{:.2%}") .set_properties(**{"text-align": "right"})
